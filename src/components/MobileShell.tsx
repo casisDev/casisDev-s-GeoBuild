@@ -10,9 +10,16 @@ interface MobileShellProps {
 
 export default function MobileShell({ children, activeTab, setActiveTab, hideNavigation = false }: MobileShellProps) {
   const [isMobileMode, setIsMobileMode] = useState<boolean>(true);
+  const [isRealMobile, setIsRealMobile] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<string>("12:00");
 
   useEffect(() => {
+    const checkViewport = () => {
+      setIsRealMobile(window.innerWidth < 768);
+    };
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+
     const updateTime = () => {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
@@ -21,7 +28,11 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
     };
     updateTime();
     const interval = setInterval(updateTime, 1000 * 60);
-    return () => clearInterval(interval);
+
+    return () => {
+      window.removeEventListener("resize", checkViewport);
+      clearInterval(interval);
+    };
   }, []);
 
   const menuItems = [
@@ -30,6 +41,55 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
     { id: "chat", label: "Consultor AI", icon: "💬" },
     { id: "history", label: "Histórico", icon: "🕒" }
   ];
+
+  if (isRealMobile) {
+    // Elegant Native Mobile Mode Layout (Adaptive Fluid Mobile Engine)
+    return (
+      <div className="h-[100dvh] w-full bg-slate-900 text-slate-100 font-sans flex flex-col justify-between overflow-hidden">
+        {/* Dynamic Compact Mobile Header */}
+        <div className="h-14 bg-slate-950 px-4 flex items-center justify-between border-b border-slate-900/60 shrink-0 select-none">
+          <div className="flex items-center gap-2">
+            <span className="text-base text-emerald-400">📐</span>
+            <span className="font-display font-black text-xs text-slate-200 tracking-wider uppercase">
+              Análise Geotécnica IA
+            </span>
+          </div>
+          <span className="text-[9px] font-mono tracking-wider py-0.5 px-2 text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/10 animate-pulse">
+            LIVE MOBILE
+          </span>
+        </div>
+
+        {/* Real Mobile Content Panel */}
+        <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden bg-slate-900 relative">
+          {children}
+        </div>
+
+        {/* Real Mobile Navigation bottom bar */}
+        {!hideNavigation && (
+          <div className="h-16 bg-slate-950 border-t border-slate-900 px-4 flex items-center justify-around pb-1.5 shrink-0 z-40">
+            {menuItems.map((item) => {
+              const isSelected = activeTab === item.id;
+              return (
+                <button
+                  id={`menu-btn-mobile-${item.id}`}
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className="flex flex-col items-center justify-center gap-1 cursor-pointer group flex-1 py-1"
+                >
+                  <div className={`text-lg transition-all duration-300 ${isSelected ? "scale-110" : "opacity-60 group-hover:opacity-100"}`}>
+                    {item.icon}
+                  </div>
+                  <span className={`text-[9px] font-medium transition-all ${isSelected ? "text-emerald-400 font-bold" : "text-slate-500"}`}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 font-sans flex flex-col justify-between transition-colors duration-300">
