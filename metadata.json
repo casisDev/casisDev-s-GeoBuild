@@ -1,0 +1,6 @@
+{
+  "name": "Análise Inteligente de Terrenos",
+  "description": "Sistema Inteligente Híbrido baseado em Inteligência Artificial e Visão Computacional para avaliação preliminar de viabilidade em construção civil.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
