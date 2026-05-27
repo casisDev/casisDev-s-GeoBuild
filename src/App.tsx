@@ -3,7 +3,7 @@ import {
   Building2, Camera, Compass, Database, FileText, CheckCircle2, 
   AlertCircle, ShieldAlert, Sparkles, Send, RefreshCw, BarChart3, 
   TrendingUp, TreePine, Landmark, DollarSign, MessageSquare, AlertTriangle, Play,
-  Trash2, Clock, Calendar, Download
+  Trash2, Clock, Calendar, Download, User as UserIcon, Ruler, Lightbulb, HardHat, Wrench
 } from "lucide-react";
 import MobileShell from "./components/MobileShell";
 import TerrainSampleSelector from "./components/TerrainSampleSelector";
@@ -239,10 +239,10 @@ export default function App() {
 
   // Chat shortcuts prompts
   const chatShortcuts = [
-    { text: "Qual a fundação mais segura?", label: "💡 Fundação ideal" },
-    { text: "Como reduzir custo de terraplenagem?", label: "🚜 Terraplenagem" },
-    { text: "Quais licenças preciso tirar?", label: "📜 Licenciamento" },
-    { text: "Por que fazer sondagem SPT?", label: "🧪 Furos SPT" }
+    { text: "Qual a fundação mais segura?", label: "Fundação ideal", icon: <Lightbulb className="h-3 w-3 text-amber-400" /> },
+    { text: "Como reduzir custo de terraplenagem?", label: "Terraplenagem", icon: <Wrench className="h-3 w-3 text-indigo-400" /> },
+    { text: "Quais licenças preciso tirar?", label: "Licenciamento", icon: <FileText className="h-3 w-3 text-emerald-400" /> },
+    { text: "Por que fazer sondagem SPT?", label: "Furos SPT", icon: <Compass className="h-3 w-3 text-sky-400" /> }
   ];
 
   // Helper colors based on score
@@ -272,7 +272,7 @@ export default function App() {
       {/* Session Header Bar */}
       <div className="px-4 py-2 bg-slate-950 border-b border-slate-900/40 flex justify-between items-center text-xs text-slate-300 shrink-0 select-none">
         <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-slate-500">👤</span>
+          <UserIcon className="h-3.5 w-3.5 text-slate-400 shrink-0" />
           <span className="font-semibold text-slate-200 truncate pr-1">
             {currentUser.username === "convidado" ? "Modo Convidado" : currentUser.name}
           </span>
@@ -292,12 +292,12 @@ export default function App() {
       
       {/* 1. SCANNER TAB (CAMERA & SAMPLES SELECTOR) */}
       {activeTab === "scan" && (
-        <div className="flex flex-col flex-1 animate-fade-in divide-y divide-slate-900">
+        <div className="flex flex-col flex-1 animate-fade-in divide-y divide-slate-900 overflow-y-auto scrollbar-thin">
           
           {/* Header element to fit simple UI requirement */}
           <div className="p-4 bg-slate-950/25">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xl">📐</span>
+              <Ruler className="h-5 w-5 text-emerald-400 shrink-0" />
               <h2 className="font-display font-medium text-lg leading-tight text-white tracking-wide">
                 Híbrido de Visão Computacional
               </h2>
@@ -343,7 +343,7 @@ export default function App() {
 
       {/* 2. DASHBOARD / DETAILED REPORT TAB */}
       {activeTab === "dashboard" && (
-        <div className="flex flex-col flex-1 animate-fade-in p-4 gap-4 pb-12">
+        <div className="flex flex-col flex-1 animate-fade-in p-4 gap-4 pb-12 overflow-y-auto scrollbar-thin">
           
           {analysisResult ? (
             <>
@@ -579,7 +579,7 @@ export default function App() {
 
       {/* 3. CHATBOT CONSULTOR AI TAB */}
       {activeTab === "chat" && (
-        <div className="flex flex-col flex-1 animate-fade-in h-[580px] bg-slate-950">
+        <div className="flex flex-col flex-1 animate-fade-in bg-slate-950 overflow-hidden h-full min-h-0">
           
           {/* Chat Header element */}
           <div className="p-3 bg-slate-900 border-b border-slate-800 flex items-center gap-3">
@@ -645,9 +645,10 @@ export default function App() {
                   id={`shortcut-btn-${idx}`}
                   key={idx}
                   onClick={() => handleSendMessage(shortcut.text)}
-                  className="px-2 py-1 bg-slate-900 hover:bg-slate-850 text-slate-300 text-[9px] rounded-lg border border-slate-800 transition-all select-none cursor-pointer"
+                  className="px-2 py-1 bg-slate-900 hover:bg-slate-850 text-slate-300 text-[9px] rounded-lg border border-slate-800 transition-all select-none cursor-pointer flex items-center gap-1"
                 >
-                  {shortcut.label}
+                  {shortcut.icon}
+                  <span>{shortcut.label}</span>
                 </button>
               ))}
             </div>
@@ -679,12 +680,12 @@ export default function App() {
 
       {/* 4. HISTORIAL TAB (ANALYSIS HISTORY) */}
       {activeTab === "history" && (
-        <div className="flex flex-col flex-1 animate-fade-in h-[580px] bg-slate-900 overflow-hidden divide-y divide-slate-900">
+        <div className="flex flex-col flex-1 animate-fade-in bg-slate-900 overflow-y-auto divide-y divide-slate-900 min-h-0">
           {/* Header Block */}
           <div className="p-4 bg-slate-950/25 flex justify-between items-center shrink-0">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">🕒</span>
+                <Clock className="h-5 w-5 text-emerald-400 shrink-0" />
                 <h2 className="font-display font-medium text-sm leading-tight text-white tracking-wide">
                   Histórico de Análises
                 </h2>

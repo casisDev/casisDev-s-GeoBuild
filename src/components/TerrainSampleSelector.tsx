@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Upload, Camera, FileText, CheckCircle, Image as ImageIcon, AlertCircle } from "lucide-react";
+import { Upload, Camera, FileText, CheckCircle, Image as ImageIcon, AlertCircle, Sun, Mountain, TreePine, Building2, Lightbulb } from "lucide-react";
 
 interface TerrainSampleSelectorProps {
   onSelectSample: (id: string) => void;
@@ -24,34 +24,45 @@ export default function TerrainSampleSelector({
       name: "Plano Arenoso",
       desc: "Lote limpo e regular de planície",
       tag: "Aridez / Litoral",
-      bgColor: "from-amber-700 to-yellow-600",
-      emoji: "🏖️"
+      bgColor: "from-amber-700 to-yellow-600"
     },
     {
       id: "steep_hillside",
       name: "Encosta Rochosa",
       desc: "Declividade acentuada com matacões",
       tag: "Geotecnia Complexa",
-      bgColor: "from-rose-900 to-slate-700",
-      emoji: "🏔️"
+      bgColor: "from-rose-900 to-slate-700"
     },
     {
       id: "dense_forest",
       name: "Mata Atlântica",
       desc: "Vegetação nativa com solo argiloso",
       tag: "Zonamento Florestal",
-      bgColor: "from-emerald-900 to-teal-800",
-      emoji: "🌳"
+      bgColor: "from-emerald-900 to-teal-800"
     },
     {
       id: "urban_concrete",
       name: "Caixa Urbana",
       desc: "Lote confinado entre prédios",
       tag: "Infraestrutura Local",
-      bgColor: "from-blue-900 to-slate-800",
-      emoji: "🏢"
+      bgColor: "from-blue-900 to-slate-800"
     }
   ];
+
+  const renderSampleIcon = (id: string) => {
+    switch (id) {
+      case "flat_sandy":
+        return <Sun className="h-7 w-7 text-amber-400" />;
+      case "steep_hillside":
+        return <Mountain className="h-7 w-7 text-rose-400" />;
+      case "dense_forest":
+        return <TreePine className="h-7 w-7 text-emerald-400" />;
+      case "urban_concrete":
+        return <Building2 className="h-7 w-7 text-blue-400" />;
+      default:
+        return <ImageIcon className="h-7 w-7 text-slate-400" />;
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -140,7 +151,9 @@ export default function TerrainSampleSelector({
                 <div className={`absolute -right-4 -bottom-4 w-20 h-20 bg-gradient-to-br ${sample.bgColor} rounded-full filter blur-xl opacity-30`}></div>
                 
                 <div className="flex justify-between items-start">
-                  <span className="text-3xl filter drop-shadow">{sample.emoji}</span>
+                  <span className="text-3xl filter drop-shadow">
+                    {renderSampleIcon(sample.id)}
+                  </span>
                   <span className="text-[9px] bg-slate-900/90 text-slate-300 rounded-full px-2 py-0.5 font-mono">
                     {sample.tag}
                   </span>
@@ -219,8 +232,8 @@ export default function TerrainSampleSelector({
 
       {/* Informative bottom card about requirements */}
       <div className="border border-slate-800 bg-slate-950/40 rounded-xl p-3 flex gap-2.5 items-start">
-        <div className="bg-emerald-500/10 p-1 rounded text-emerald-400 shrink-0 text-xs">
-          💡
+        <div className="bg-emerald-500/10 p-1.5 rounded text-emerald-400 shrink-0">
+          <Lightbulb className="h-4 w-4" />
         </div>
         <div className="text-[11px] leading-relaxed text-slate-400">
           <strong className="text-slate-300">Dica Geotécnica:</strong> Tire fotos de encostas que mostram o lote em perfil (com referências de árvores, postes ou casas vizinhas) para que a IA possa estimar a rampa média do plano cartesiano.

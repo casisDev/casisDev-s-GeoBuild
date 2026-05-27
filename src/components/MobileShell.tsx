@@ -1,4 +1,5 @@
 import React from "react";
+import { Camera, BarChart3, MessageSquare, Clock, Ruler } from "lucide-react";
 
 interface MobileShellProps {
   children: React.ReactNode;
@@ -9,10 +10,10 @@ interface MobileShellProps {
 
 export default function MobileShell({ children, activeTab, setActiveTab, hideNavigation = false }: MobileShellProps) {
   const menuItems = [
-    { id: "scan", label: "Scanner", icon: "📷" },
-    { id: "dashboard", label: "Relatório", icon: "📊" },
-    { id: "chat", label: "Consultor AI", icon: "💬" },
-    { id: "history", label: "Histórico", icon: "🕒" }
+    { id: "scan", label: "Scanner", icon: <Camera className="h-5 w-5" /> },
+    { id: "dashboard", label: "Relatório", icon: <BarChart3 className="h-5 w-5" /> },
+    { id: "chat", label: "Consultor AI", icon: <MessageSquare className="h-5 w-5" /> },
+    { id: "history", label: "Histórico", icon: <Clock className="h-5 w-5" /> }
   ];
 
   return (
@@ -20,7 +21,7 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
       {/* Sleek, Elegant Unified Top Header Bar */}
       <div className="h-14 bg-slate-950 border-b border-slate-900/65 px-4 md:px-6 flex items-center justify-between shrink-0 select-none z-40">
         <div className="flex items-center gap-2.5">
-          <span className="text-lg">📐</span>
+          <Ruler className="h-5 w-5 text-emerald-400 shrink-0" />
           <div>
             <h1 className="font-display font-black text-xs md:text-sm text-slate-100 tracking-wider uppercase">
               Análise Geotécnica IA
@@ -47,7 +48,7 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
                       : "text-slate-400 hover:text-slate-100"
                   }`}
                 >
-                  <span className="text-xs">{item.icon}</span>
+                  <span className="shrink-0">{item.icon}</span>
                   <span>{item.label}</span>
                 </button>
               );
@@ -62,10 +63,10 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
         </div>
       </div>
 
-      {/* Main Dynamic Screen viewport Wrapper (Adaptive Grid Frame) */}
+      {/* Main Dynamic Screen viewport Wrapper (Adaptive Grid Frame with no dual scrolling) */}
       <div className="flex-1 overflow-hidden flex flex-col w-full relative bg-slate-900">
         <div className="flex-1 flex flex-col w-full max-w-6xl mx-auto md:px-4 lg:px-6 relative overflow-hidden bg-slate-900 md:border-x md:border-slate-950">
-          <div className="flex-1 flex flex-col overflow-y-auto overflow-x-hidden relative bg-slate-900">
+          <div className="flex-1 flex flex-col overflow-hidden relative bg-slate-900 h-full">
             {children}
           </div>
         </div>
@@ -83,7 +84,7 @@ export default function MobileShell({ children, activeTab, setActiveTab, hideNav
                 onClick={() => setActiveTab(item.id)}
                 className="flex flex-col items-center justify-center gap-1 cursor-pointer group flex-1 py-1"
               >
-                <div className={`text-lg transition-all duration-300 ${isSelected ? "scale-110" : "opacity-60 group-hover:opacity-100"}`}>
+                <div className={`transition-all duration-300 ${isSelected ? "scale-110 text-emerald-400" : "text-slate-400 opacity-60 group-hover:opacity-100"}`}>
                   {item.icon}
                 </div>
                 <span className={`text-[9px] font-bold transition-all ${isSelected ? "text-emerald-400" : "text-slate-500"}`}>
