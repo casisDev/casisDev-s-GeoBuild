@@ -171,7 +171,7 @@ Se passarmos de 10% de inclinação, lembre-se de que os taludes de corte devem 
     const risk = currentReport ? currentReport.structuralSuggestions.zoningRisk : "Se liga nos recuos mínimos das divisas laterais.";
     return `**Eng. Lucas (Mentor IA Offline):** O planejamento legal urbano da área aponta:
     
-⚠️ *${risk}*
+- **Restrição:** *${risk}*
 
 Antes de assinar qualquer contrato civil ou mobilizar maquinários ao local, faça uma consulta na prefeitura do município para emitir a 'Certidão de Diretrizes de Uso do Solo'. Evite dores de cabeça com multas administrativas ou embargo ambiental de obra!`;
   }

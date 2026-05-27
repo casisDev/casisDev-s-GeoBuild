@@ -126,7 +126,7 @@ export default function App() {
         const analysisGreeting: ChatMessage = {
           id: `eval-${Date.now()}`,
           sender: "ai",
-          text: `📊 **Relatório Atualizado:** Acabei de analisar o lote "${data.title}" com pontuação de viabilidade **${data.score}/100** (${data.classification}).\n\nIndiquei a fundação do tipo **${data.structuralSuggestions?.recommendedFoundation}** como a mais prudente e econômica.\n\nComo posso te ajudar no detalhamento deste terreno específico agora?`,
+          text: `**Relatório Atualizado:** Acabei de analisar o lote "${data.title}" com pontuação de viabilidade **${data.score}/100** (${data.classification}).\n\nIndiquei a fundação do tipo **${data.structuralSuggestions?.recommendedFoundation}** como a mais prudente e econômica.\n\nComo posso te ajudar no detalhamento deste terreno específico agora?`,
           timestamp: new Date()
         };
         setChatMessages(prev => [...prev, analysisGreeting]);
@@ -159,7 +159,7 @@ export default function App() {
       const analysisGreeting: ChatMessage = {
         id: `eval-${Date.now()}`,
         sender: "ai",
-        text: `⚡ **Simulação Offline Ativada:** ${payload.imageBase64 ? "Sua fotografia de terreno foi estimada localmente no navegador." : "O lote '" + data.title + "' foi processado do catálogo estático."}\n\n📊 **Pontuação de Viabilidade:** **${data.score}/100** (${data.classification}).\n\nFundação ideal: **${data.structuralSuggestions?.recommendedFoundation}**.\n\nSinta-se à vontade para tirar qualquer dúvida com o **Eng. Lucas** no chat!`,
+        text: `**Simulação Offline Ativada:** ${payload.imageBase64 ? "Sua fotografia de terreno foi estimada localmente no navegador." : "O lote '" + data.title + "' foi processado do catálogo estático."}\n\n**Pontuação de Viabilidade:** **${data.score}/100** (${data.classification}).\n\nFundação ideal: **${data.structuralSuggestions?.recommendedFoundation}**.\n\nSinta-se à vontade para tirar qualquer dúvida com o **Eng. Lucas** no chat!`,
         timestamp: new Date()
       };
       setChatMessages(prev => [...prev, analysisGreeting]);
